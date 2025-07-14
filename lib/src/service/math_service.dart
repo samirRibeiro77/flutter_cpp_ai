@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_cpp_ai/src/model/math_request.dart';
 import 'package:flutter_cpp_ai/src/model/math_response.dart';
 
