@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cpp_ai/src/model/math_connection_type.dart';
 import 'package:flutter_cpp_ai/src/ui/screen/home_page.dart';
-import 'package:flutter_cpp_ai/src/ui/screen/native_page.dart';
+import 'package:flutter_cpp_ai/src/ui/screen/math_page.dart';
 
 class RouteGenerator {
   static const String home = "/";
@@ -13,11 +14,11 @@ class RouteGenerator {
       case home:
         return MaterialPageRoute(builder: (_) => HomePage());
       case flutterOnly:
-        return MaterialPageRoute(builder: (_) => NativePage());
-      // case platformChannels:
-      //   return MaterialPageRoute(builder: (_) => MaterialApp());
-      // case foreignFunctionInterface:
-      //   return MaterialPageRoute(builder: (_) => MaterialApp());
+        return MaterialPageRoute(builder: (_) => MathPage(type: MathConnectionType.dart));
+      case platformChannels:
+        return MaterialPageRoute(builder: (_) => MathPage(type: MathConnectionType.fpc));
+      case foreignFunctionInterface:
+        return MaterialPageRoute(builder: (_) => MathPage(type: MathConnectionType.ffi));
       default:
         return _errorRoute();
     }

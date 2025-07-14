@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cpp_ai/src/model/math_connection_type.dart';
 import 'package:flutter_cpp_ai/src/model/math_request.dart';
 import 'package:flutter_cpp_ai/src/service/math_service.dart';
 import 'package:flutter_cpp_ai/src/ui/helper/number_field.dart';
 
-class NativePage extends StatefulWidget {
-  const NativePage({super.key});
+class MathPage extends StatefulWidget {
+  const MathPage({super.key, required this.type});
+
+  final MathConnectionType type;
 
   @override
-  State<NativePage> createState() => _NativePageState();
+  State<MathPage> createState() => _MathPageState();
 }
 
-class _NativePageState extends State<NativePage> {
-  final _service = MathService();
-
+class _MathPageState extends State<MathPage> {
   final _xController = TextEditingController();
   final _yController = TextEditingController();
 
+  MathService? _service;
+
+  String _value = "";
   String _result = "";
 
   _addNumbers() {
     final request = MathRequest.fromString(_xController.text, _yController.text);
-    final response = _service.sumDartOnly(request);
+    final response = _service!.add(request);
 
     setState(() {
+      _value = response.answer.toString();
       _result = response.duration;
     });
 
@@ -35,9 +40,15 @@ class _NativePageState extends State<NativePage> {
   }
 
   @override
+  void initState() {
+    _service = MathService(widget.type);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Dart only")),
+      appBar: AppBar(title: Text(widget.type.name)),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -57,6 +68,7 @@ class _NativePageState extends State<NativePage> {
               child: const Text("Sum numbers"),
             ),
             const SizedBox(height: 32),
+            Center(child: Text(_value, style: TextStyle(fontSize: 36))),
             Center(child: Text(_result, style: TextStyle(fontSize: 18)))
           ],
         ),
