@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cpp_ai/src/ui/screen/home_page.dart';
+import 'package:flutter_cpp_ai/src/ui/screen/native_page.dart';
 
 class RouteGenerator {
   static const String home = "/";
@@ -11,8 +12,8 @@ class RouteGenerator {
     switch (routeSettings.name) {
       case home:
         return MaterialPageRoute(builder: (_) => HomePage());
-      // case flutterOnly:
-      //   return MaterialPageRoute(builder: (_) => MaterialApp());
+      case flutterOnly:
+        return MaterialPageRoute(builder: (_) => NativePage());
       // case platformChannels:
       //   return MaterialPageRoute(builder: (_) => MaterialApp());
       // case foreignFunctionInterface:
