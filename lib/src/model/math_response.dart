@@ -1,7 +1,7 @@
 import 'package:flutter_cpp_ai/src/model/math_connection_type.dart';
 
 class MathResponse {
-  final int _answer;
+  late final int _answer;
   late final int _elapsedTime;
   late final MathConnectionType _type;
 
@@ -11,7 +11,7 @@ class MathResponse {
   }
 
   MathResponse.fromFpc(this._answer, {required DateTime start, required DateTime end}) {
-    _elapsedTime = start.difference(end).inMilliseconds;
+    _elapsedTime = end.difference(start).inMilliseconds;
     _type = MathConnectionType.fpc;
   }
 
@@ -24,5 +24,5 @@ class MathResponse {
 
   int get answer => _answer;
 
-  String get duration => "Using '${_type.name}' it took ${_elapsedTime.toStringAsFixed(2)}ms to execute";
+  String get duration => "Using '${_type.name}' approach\nit took ${_elapsedTime.toStringAsFixed(2)}ms to execute";
 }
