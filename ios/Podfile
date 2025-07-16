@@ -1,0 +1,6 @@
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++14'
+            config.build_settings['OTHER_FLAGS'] = '-I$(PODS_TARGET_SRCROOT)/../native/include'
+            config.build_settings['OTHER_LDFLAGS'] = '$(inherited) -L$(PODS_TARGET_SRCROOT)/../native/build'
