@@ -36,17 +36,24 @@ android {
         }
     }
 
+/* App only works with the last externalNativeBuild block
+* Change wich version before running the app
+* Discovery how to add both at the same time
+*/
+/* This one is FPC */
     externalNativeBuild {
         cmake {
             path = file("src/main/cpp/CMakeLists.txt")
         }
     }
 
-    externalNativeBuild {
-        cmake {
-            path = file("src/main/CMakeLists.txt")
-        }
-    }
+/* Uncomment this part and comment the upper one to change
+/* This one is FFi */
+//    externalNativeBuild {
+//        cmake {
+//            path = file("src/main/CMakeLists.txt")
+//        }
+//    }
 
     buildTypes {
         release {
