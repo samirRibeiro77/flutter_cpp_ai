@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:flutter_cpp_ai/src/bindings/math_bindings.dart';
 import 'package:flutter_cpp_ai/src/model/math_connection_type.dart';
 import 'package:flutter_cpp_ai/src/model/math_request.dart';
 import 'package:flutter_cpp_ai/src/model/math_response.dart';
@@ -16,8 +17,8 @@ class MathService {
         return Future.value(_sumDartOnly(request));
       case MathConnectionType.fpc:
         return _sumFpc(request);
-      default:
-        return Future.value(_sumDartOnly(request)); //Remove later
+      case MathConnectionType.ffi:
+        return Future.value(_sumFfi(request));
     }
   }
 
@@ -42,6 +43,19 @@ class MathService {
     } on PlatformException catch (e) {
       print("Error executing FPC: ${e.message}");
       return Future.error(e);
+    }
+  }
+
+  MathResponse _sumFfi(MathRequest request) {
+    try {
+      final start = DateTime.now();
+      final int result = MathBindings.instance.addNumbers(request.x, request.y);
+      final end = DateTime.now();
+
+      return MathResponse.fromFpc(result, start: start, end: end);
+    } on PlatformException catch (e) {
+      print("Error executing FFI: ${e.message}");
+      rethrow;
     }
   }
 }

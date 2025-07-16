@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.samir_ribeiro.flutter_cpp_ai"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -39,6 +39,12 @@ android {
     externalNativeBuild {
         cmake {
             path = file("src/main/cpp/CMakeLists.txt")
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/CMakeLists.txt")
         }
     }
 

@@ -22,13 +22,14 @@ class _MathPageState extends State<MathPage> {
   String _value = "";
   String _result = "";
 
-  _addNumbers() async {
+  _addNumbers() {
     final request = MathRequest.fromString(_xController.text, _yController.text);
-    final response = await _service!.add(request);
 
-    setState(() {
-      _value = response.answer.toString();
-      _result = response.duration;
+    _service!.add(request).then((response) {
+      setState(() {
+        _value = response.answer.toString();
+        _result = response.duration;
+      });
     });
   }
 
